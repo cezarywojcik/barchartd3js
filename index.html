@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+  <head>
+    <title>
+      Barchartd3.js
+    </title>
+    <link rel="stylesheet" type="text/css" href="res/css/style.css">
+  </head>
+  <body>
+    <div id="content">
+      <h1>Barchartd3.js</h1>
+      <h2>Description</h2>
+      <p><strong>Made By: Cezary Wojcik</strong></p>
+      <p>Barchartd3.js is a javascript library that uses d3.v3 to make simple, interactive bar graphs. The opacity of each bar is determined by the data value to make the bar graph a clearer visual representation of the data. The default mouse events allow the user to click on a bar in order to zoom the bar graph to fit the clicked bar.</p>
+      <p>You can see the full readme on <a target="_blank" href="https://github.com/cezarywojcik/barchartd3js#barchartd3js">GitHub</a>.</p>
+      <h2>Default Settings</h2>
+      <p>First, we have a bar graph that is created with the pure default settings. The data below is just an array of 20 randomized numbers. Click a bar to see the graph scale to that bar.</p>
+      <div id="barchart1">
+      </div>
+      <h2>Simplistic Graph</h2>
+      <p>This time, we'll make an extremely simplistic graph with no interactivity (this time using 10 random values).</p>
+      <div id="barchart2">
+      </div>
+      <h2>Changing the Styling</h2>
+      <p>This time, let's change the styling of the graph a bit using the built-in settings function.</p>
+      <div id="barchart3">
+      </div>
+    </div>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="res/js/barchartd3.js"></script>
+    <script>
+      function getDataset(num)
+      {
+        var dataset = [];
+        while(dataset.length < num){
+          var randomnumber=Math.ceil(Math.random()*80+20)
+          var found=false;dataset
+          for(var i=0;i<dataset.length;i++){
+            if(dataset[i]==randomnumber){found=true;break}
+          }
+          if(!found)dataset[dataset.length]=randomnumber;
+        }
+        return dataset;
+      }
+      // barchart 1
+      var chart1 = barchart();
+      d3.select("#barchart1")
+        .datum(getDataset(20))
+        .call(chart1);
+      // barchart 2
+      var chart2 = barchart()
+        .settings("interactive", false)
+        .settings("showyaxis", false)
+        .settings("showdatalabels", false)
+        .settings("barpadding", 0)
+        .settings("yaxiswidth", 0)
+        .settings("xaxisheight", 0)
+        .settings("titleheight", 0);
+      d3.select("#barchart2")
+        .datum(getDataset(10))
+        .call(chart2);
+      // barchart 3
+      var chart3 = barchart()
+        .settings("backgroundcolor", "#424242")
+        .settings("barcolor", "#FF9900")
+        .settings("axislabelfontcolor", "#FFFFFF")
+        .settings("titlecolor", "#FFFFFF")
+        .settings("yaxislabelcolor", "#FFFFFF")
+        .settings("datalabelcolor", "#000000")
+        .settings("barmouseovercolor", "#66FF33")
+        .settings("barclickcolor", "#CC33FF")
+        .settings("title", "Awesomeness of Numbers")
+        .settings("yaxislabel", "Awesomeness")
+        .settings("barpadding", 10)
+        .settings("xaxislabels", ["One", "Two", "Three", "Four", "Five",
+          "Six", "Seven", "Eight", "Nine", "Ten"]);
+      d3.select("#barchart3")
+        .datum(getDataset(10))
+        .call(chart3);
+    </script>
+  </body>
+</html>
